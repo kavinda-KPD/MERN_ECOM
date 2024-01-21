@@ -7,7 +7,7 @@ import MessageBox from "../components/MessageBosx.tsx";
 import LoadingBox from "../components/LoadingBox.tsx";
 import { getError } from "../utils.ts";
 import { ApiError } from "../types/ApiError.ts";
-
+import ProductItem from "../components/ProductItem.tsx";
 
 type State = {
   products: Product[];
@@ -43,11 +43,10 @@ const reducer = (state: State, action: Action) => {
 };
 
 export default function HomePage() {
-  
-    const [{ loading, error, products }, dispatch] = useReducer<
+  const [{ loading, error, products }, dispatch] = useReducer<
     React.Reducer<State, Action>
   >(reducer, initialState);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -60,7 +59,6 @@ export default function HomePage() {
       }
     };
     fetchData();
-    
   }, []);
 
   return loading ? (
@@ -70,18 +68,12 @@ export default function HomePage() {
   ) : (
     <Row>
       {products.map((product) => (
-        <Col key={product.slug} sm={6} md={4} lg={3}>
-          <Link to={'/product/' + product.slug}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="product-image"
-            />
-            <h2>{product.name}</h2>
-            <p>${product.price}</p>
-          </Link>
-        </Col>
+        
+          <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+            <ProductItem product={product}></ProductItem>
+          </Col>
+  
       ))}
     </Row>
-  )
+  );
 }
