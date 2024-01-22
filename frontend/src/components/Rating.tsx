@@ -4,7 +4,7 @@ function Rating(props: {
   caption?: string;
 }) {
   const { rating, numReviews, caption } = props;
-  console.log(numReviews);
+//   console.log(numReviews);
 
   return (
     <div className="rating">
